@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductoSearchDlg" widgetVar="ProductoSearchDlg" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProductoTitle}">
+            <h:form id="ProductoViewForm">
+                <p:panelGrid columns="4">
+
+                    <h:outputText value="#{bundle.CreateProductoLabel_codProd}"/>
+                    <p:selectOneMenu id="codProd2" value="#{productoController.selected}"  filter="true" filterMatchMode="contains"  >
+                                    <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                                   var="codProdItem"
+                                                   itemLabel="#{codProdItem.nombre }"
+                                                   itemValue="#{codProdItem}"/>
+                    </p:selectOneMenu>  
+                    <p:commandButton actionListener="#{productoController.select}" value="#{bundle.Select}" update="@all" onclick="ProductoSearchDlg.hide()" />
+                    <p:commandButton actionListener="#{productoController.select}" value="#{bundle.View}" update="@form"  />
+
+                </p:panelGrid>
+                <p:panel header="#{bundle.Product_Properties }">
+                <center>
+                <p:panelGrid columns="2" rendered="#{productoController.selected.codProd>0}">
+                        <h:outputText value="#{bundle.ViewProductoLabel_codProd}"/>
+                        <h:outputText value="#{productoController.selected.codProd}" title="#{bundle.ViewProductoTitle_codProd}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_nombre}"/>
+                        <h:outputText value="#{productoController.selected.nombre}" title="#{bundle.ViewProductoTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_costo}"/>
+                        <h:outputText value="#{productoController.selected.costo}" title="#{bundle.ViewProductoTitle_costo}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_precio}"/>
+                        <h:outputText value="#{productoController.selected.precio}" title="#{bundle.ViewProductoTitle_precio}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_existencia}"/>
+                        <h:outputText value="#{productoController.selected.existencia}" title="#{bundle.ViewProductoTitle_existencia}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_maxExistencia}"/>
+                        <h:outputText value="#{productoController.selected.maxExistencia}" title="#{bundle.ViewProductoTitle_maxExistencia}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_minExistencia}"/>
+                        <h:outputText value="#{productoController.selected.minExistencia}" title="#{bundle.ViewProductoTitle_minExistencia}"/>
+                    </p:panelGrid>
+                </center>
+                    </p:panel>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

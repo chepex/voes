@@ -24,10 +24,14 @@ public class MovDetController implements Serializable {
 
     @EJB
     private com.entities.MovDetFacade ejbFacade;
+
+    @EJB
+    private com.entities.ProductoFacade productFacade;    
     private List<MovDet> items = null;
     private MovDet selected;
     private List<MovDet> lmovdet =  new ArrayList<MovDet>();
     private int vcor;
+    private int codigo;
     
     public MovDetController() {
     }
@@ -40,6 +44,14 @@ public class MovDetController implements Serializable {
         this.selected = selected;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    
     public List<MovDet> getLmovdet() {
         return lmovdet;
     }
@@ -79,17 +91,21 @@ public class MovDetController implements Serializable {
     }
     
     public void add() {
-        System.out.println("lmovdet ---- >"+ lmovdet);
+        Producto p= productFacade.find(codigo);
+        selected.setCodProd(p);
+        if(selected.getCantidad()==null){
+            selected.setCantidad(1);
+        }
         Integer a =  selected.getCantidad() * selected.getCodProd().getPrecio();
-    if(lmovdet==null){
-            lmovdet = null;
-            
-    }else{
-        selected.setTotal(a.longValue());
-        lmovdet.add(selected);
-    }
-        this.prepareCreate();
-        System.out.println("lmovdet ---- >"+ lmovdet);
+        if(lmovdet==null){
+                lmovdet = null;
+
+        }else{
+            selected.setTotal(a.longValue());
+            lmovdet.add(selected);
+        }
+            this.prepareCreate();
+            System.out.println("lmovdet ---- >"+ lmovdet);
     }
     
 

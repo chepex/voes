@@ -15,28 +15,21 @@
 
         <ui:define name="body">
             
-            <h:form id="MovDetCreateForm">
-                
-                <h:panelGroup id="display">
-                    <p:commandButton actionListener="#{movDetController.prepareCreate()}" value="#{bundle.Create}" update="@form" />
-            <center>        
-                        <p:panelGrid columns="2" rendered="#{movDetController.selected != null}">
-
-                        <p:outputLabel value="#{bundle.CreateMovDetLabel_codTipoDoc}" for="codTipoDoc" />
-                        <p:inputText id="codTipoDoc" value="#{movDetController.selected.codTipoDoc}" title="#{bundle.CreateMovDetTitle_codTipoDoc}" />
-                        
-                        <p:outputLabel value="#{bundle.CreateMovDetLabel_codProd}" for="codProd" />
-                        <p:selectOneMenu id="codProd" value="#{movDetController.selected.codProd}" >
-                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
-                                           var="codProdItem"
-                                           itemValue="#{codProdItem}"/>
-                        </p:selectOneMenu>
-                        
-                        <p:outputLabel value="#{bundle.CreateMovDetLabel_cantidad}" for="cantidad" />
-                        <p:inputText id="cantidad" value="#{movDetController.selected.cantidad}" title="#{bundle.CreateMovDetTitle_cantidad}" />
+            <h:form id="MovDetCreateForm">                
+                <h:panelGroup id="display">                   
+                    <center>        
+                        <p:panelGrid columns="6" rendered="#{movDetController.selected != null}">                        
+                            <p:outputLabel value="#{bundle.CreateMovDetLabel_cantidad}" for="cantidad" />
+                            <p:inputText id="cantidad" value="#{movDetController.selected.cantidad}" title="#{bundle.CreateMovDetTitle_cantidad}" />
+                            <p:outputLabel value="#{bundle.CreateMovDetLabel_codProd}" for="codProd" />
+                            <p:inputText id="codProd" value="#{movDetController.codigo}" title="#{bundle.CreateMovDetTitle_cantidad}" />
+                            
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" update=":ProductoViewForm" oncomplete="PF('ProductoSearchDlg').show()" actionListener="#{productoController.prepareCreate}" />
+                             
+                             
+                                                                          
+                            <p:commandButton actionListener="#{movDetController.add}" value="#{bundle.Add}" update="@form :MovDetListForm" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{movDetController.add}" value="#{bundle.Add}" update="@form :MovDetListForm" />
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MovDetCreateDialog.hide()"/>
                     </center>            
                 </h:panelGroup>
             </h:form>
@@ -85,7 +78,7 @@
                         <p:panelGrid columns="2">
                                 <h:outputText value="Total"/>
                                 <h:outputText value="Total"/>
-                                s
+                                
                                                             
                             </p:panelGrid>
                         </div>
@@ -93,6 +86,9 @@
                 
             </h:form>
             
+
+            
+              <ui:include src="/producto/Search.xhtml"/>
             
         </ui:define>
     </ui:composition>

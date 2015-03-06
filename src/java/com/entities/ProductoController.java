@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -25,8 +26,18 @@ public class ProductoController implements Serializable {
     private com.entities.ProductoFacade ejbFacade;
     private List<Producto> items = null;
     private Producto selected;
+    @ManagedProperty(value="#{movDetController}")
+    private MovDetController movDetController;
 
     public ProductoController() {
+    }
+
+    public MovDetController getMovDetController() {
+        return movDetController;
+    }
+
+    public void setMovDetController(MovDetController movDetController) {
+        this.movDetController = movDetController;
     }
 
     public Producto getSelected() {
@@ -154,6 +165,11 @@ public class ProductoController implements Serializable {
             }
         }
 
+    }
+    
+    public void select(){
+        movDetController.setCodigo(selected.getCodProd());
+        System.out.println("codigo = "+movDetController.getCodigo()); 
     }
 
 }

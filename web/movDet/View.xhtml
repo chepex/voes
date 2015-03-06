@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovDetViewDlg" widgetVar="MovDetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMovDetTitle}">
+            <h:form id="MovDetViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{movDetController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMovDetLabel_movDetPK_correlativo}"/>
+                        <h:outputText value="#{movDetController.selected.movDetPK.correlativo}" title="#{bundle.ViewMovDetTitle_movDetPK_correlativo}"/>
+                        <h:outputText value="#{bundle.ViewMovDetLabel_movDetPK_codMov}"/>
+                        <h:outputText value="#{movDetController.selected.movDetPK.codMov}" title="#{bundle.ViewMovDetTitle_movDetPK_codMov}"/>
+                        <h:outputText value="#{bundle.ViewMovDetLabel_codTipoDoc}"/>
+                        <h:outputText value="#{movDetController.selected.codTipoDoc}" title="#{bundle.ViewMovDetTitle_codTipoDoc}"/>
+                        <h:outputText value="#{bundle.ViewMovDetLabel_fecha}"/>
+                        <h:outputText value="#{movDetController.selected.fecha}" title="#{bundle.ViewMovDetTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMovDetLabel_cantidad}"/>
+                        <h:outputText value="#{movDetController.selected.cantidad}" title="#{bundle.ViewMovDetTitle_cantidad}"/>
+                        <h:outputText value="#{bundle.ViewMovDetLabel_subTotal}"/>
+                        <h:outputText value="#{movDetController.selected.subTotal}" title="#{bundle.ViewMovDetTitle_subTotal}"/>
+                        <h:outputText value="#{bundle.ViewMovDetLabel_iva}"/>
+                        <h:outputText value="#{movDetController.selected.iva}" title="#{bundle.ViewMovDetTitle_iva}"/>
+                        <h:outputText value="#{bundle.ViewMovDetLabel_total}"/>
+                        <h:outputText value="#{movDetController.selected.total}" title="#{bundle.ViewMovDetTitle_total}"/>
+                        <h:outputText value="#{bundle.ViewMovDetLabel_codProd}"/>
+                        <h:outputText value="#{movDetController.selected.codProd}" title="#{bundle.ViewMovDetTitle_codProd}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MovDetViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

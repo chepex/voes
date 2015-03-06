@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMovDetTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            
+            <h:form id="MovDetCreateForm">
+                
+                <h:panelGroup id="display">
+                    <p:commandButton actionListener="#{movDetController.prepareCreate()}" value="#{bundle.Create}" update="@form" />
+            <center>        
+                        <p:panelGrid columns="2" rendered="#{movDetController.selected != null}">
+
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_codTipoDoc}" for="codTipoDoc" />
+                        <p:inputText id="codTipoDoc" value="#{movDetController.selected.codTipoDoc}" title="#{bundle.CreateMovDetTitle_codTipoDoc}" />
+                        
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_codProd}" for="codProd" />
+                        <p:selectOneMenu id="codProd" value="#{movDetController.selected.codProd}" >
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="codProdItem"
+                                           itemValue="#{codProdItem}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{movDetController.selected.cantidad}" title="#{bundle.CreateMovDetTitle_cantidad}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movDetController.add}" value="#{bundle.Add}" update="@form :MovDetListForm" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MovDetCreateDialog.hide()"/>
+                    </center>            
+                </h:panelGroup>
+            </h:form>
+
+            <h:form id="MovDetListForm">
+                <p:panel header="#{bundle.ListMovDetTitle}">
+                    <p:dataTable id="datalist" value="#{movDetController.lmovdet}" var="item"
+                                 selectionMode="single" selection="#{movDetController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.movDetPK}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovDetTitle_codProd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codProd}"/>
+                        </p:column>                        
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovDetTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Precio"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codProd.precio}"/>
+                        </p:column>                        
+                        
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovDetTitle_total}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.total}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <div align="right" >
+                        <p:panelGrid columns="2">
+                                <h:outputText value="Total"/>
+                                <h:outputText value="Total"/>
+                                s
+                                                            
+                            </p:panelGrid>
+                        </div>
+                </p:panel>
+                
+            </h:form>
+            
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

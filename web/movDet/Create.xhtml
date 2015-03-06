@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovDetCreateDlg" widgetVar="MovDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMovDetTitle}">
+            <h:form id="MovDetCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{movDetController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_movDetPK_correlativo}" for="movDetPK_correlativo" />
+                        <p:inputText id="movDetPK_correlativo" value="#{movDetController.selected.movDetPK.correlativo}" title="#{bundle.CreateMovDetTitle_movDetPK_correlativo}" required="true" requiredMessage="#{bundle.CreateMovDetRequiredMessage_movDetPK_correlativo}"/>
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_movDetPK_codMov}" for="movDetPK_codMov" />
+                        <p:inputText id="movDetPK_codMov" value="#{movDetController.selected.movDetPK.codMov}" title="#{bundle.CreateMovDetTitle_movDetPK_codMov}" required="true" requiredMessage="#{bundle.CreateMovDetRequiredMessage_movDetPK_codMov}"/>
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_codTipoDoc}" for="codTipoDoc" />
+                        <p:inputText id="codTipoDoc" value="#{movDetController.selected.codTipoDoc}" title="#{bundle.CreateMovDetTitle_codTipoDoc}" />
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{movDetController.selected.fecha}" title="#{bundle.EditMovDetTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{movDetController.selected.cantidad}" title="#{bundle.CreateMovDetTitle_cantidad}" />
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_subTotal}" for="subTotal" />
+                        <p:inputText id="subTotal" value="#{movDetController.selected.subTotal}" title="#{bundle.CreateMovDetTitle_subTotal}" />
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_iva}" for="iva" />
+                        <p:inputText id="iva" value="#{movDetController.selected.iva}" title="#{bundle.CreateMovDetTitle_iva}" />
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{movDetController.selected.total}" title="#{bundle.CreateMovDetTitle_total}" />
+                        <p:outputLabel value="#{bundle.CreateMovDetLabel_codProd}" for="codProd" />
+                        <p:selectOneMenu id="codProd" value="#{movDetController.selected.codProd}" >
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="codProdItem"
+                                           itemValue="#{codProdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movDetController.create}" value="#{bundle.Save}" update="display,:MovDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'MovDetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MovDetCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovCreateDlg" widgetVar="MovCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMovTitle}">
+            <h:form id="MovCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{movController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMovLabel_codTipoDoc}" for="codTipoDoc" />
+                        <p:inputText id="codTipoDoc" value="#{movController.selected.codTipoDoc}" title="#{bundle.CreateMovTitle_codTipoDoc}" />
+                        <p:outputLabel value="#{bundle.CreateMovLabel_codMov}" for="codMov" />
+                        <p:inputText id="codMov" value="#{movController.selected.codMov}" title="#{bundle.CreateMovTitle_codMov}" required="true" requiredMessage="#{bundle.CreateMovRequiredMessage_codMov}"/>
+                        <p:outputLabel value="#{bundle.CreateMovLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{movController.selected.fecha}" title="#{bundle.EditMovTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMovLabel_subtotal}" for="subtotal" />
+                        <p:inputText id="subtotal" value="#{movController.selected.subtotal}" title="#{bundle.CreateMovTitle_subtotal}" />
+                        <p:outputLabel value="#{bundle.CreateMovLabel_iva}" for="iva" />
+                        <p:inputText id="iva" value="#{movController.selected.iva}" title="#{bundle.CreateMovTitle_iva}" />
+                        <p:outputLabel value="#{bundle.CreateMovLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{movController.selected.total}" title="#{bundle.CreateMovTitle_total}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movController.create}" value="#{bundle.Save}" update="display,:MovListForm:datalist,:growl" oncomplete="handleSubmit(args,'MovCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MovCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

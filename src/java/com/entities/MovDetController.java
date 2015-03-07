@@ -99,13 +99,11 @@ public class MovDetController implements Serializable {
         Integer a =  selected.getCantidad() * selected.getCodProd().getPrecio();
         if(lmovdet==null){
                 lmovdet = null;
-
         }else{
             selected.setTotal(a.longValue());
             lmovdet.add(selected);
         }
-            this.prepareCreate();
-            System.out.println("lmovdet ---- >"+ lmovdet);
+            this.prepareCreate();          
     }
     
 

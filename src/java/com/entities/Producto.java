@@ -49,7 +49,7 @@ public class Producto implements Serializable {
     @Column(name = "costo")
     private Integer costo;
     @Column(name = "precio")
-    private Integer precio;
+    private Long precio;
     @Column(name = "existencia")
     private Integer existencia;
     @Column(name = "max_existencia")
@@ -90,11 +90,11 @@ public class Producto implements Serializable {
         this.costo = costo;
     }
 
-    public Integer getPrecio() {
+    public Long getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Integer precio) {
+    public void setPrecio(Long precio) {
         this.precio = precio;
     }
 

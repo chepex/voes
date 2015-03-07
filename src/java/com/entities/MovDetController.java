@@ -32,10 +32,23 @@ public class MovDetController implements Serializable {
     private List<MovDet> lmovdet =  new ArrayList<MovDet>();
     private int vcor;
     private int codigo;
+    private Long vtotal;
     
     public MovDetController() {
     }
 
+    public Long getVtotal() {
+        return vtotal;
+    }
+
+    public void setVtotal(Long vtotal) {
+        this.vtotal = vtotal;
+    }
+
+    
+
+    
+    
     public MovDet getSelected() {
         return selected;
     }
@@ -90,20 +103,37 @@ public class MovDetController implements Serializable {
         }
     }
     
-    public void add() {
+    public String add() {
+        
+        if(codigo ==0){
+            JsfUtil.addErrorMessage("Selecione un producto");
+            return "";
+        }
         Producto p= productFacade.find(codigo);
         selected.setCodProd(p);
         if(selected.getCantidad()==null){
             selected.setCantidad(1);
         }
-        Integer a =  selected.getCantidad() * selected.getCodProd().getPrecio();
+        selected.setPrecio(p.getPrecio());
+        Long a =  selected.getCantidad().longValue() * selected.getCodProd().getPrecio().intValue();
         if(lmovdet==null){
-                lmovdet = null;
+                              
+                selected.setTotal(a);
         }else{
-            selected.setTotal(a.longValue());
+            selected.setTotal(a);
             lmovdet.add(selected);
         }
-            this.prepareCreate();          
+        if(vtotal==null){
+            vtotal =  a;
+        }else{
+            vtotal = vtotal + a;
+        }
+        
+            
+            this.prepareCreate();
+            codigo=0;
+            
+            return "";
     }
     
 

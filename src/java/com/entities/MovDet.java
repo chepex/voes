@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MovDet.findByFecha", query = "SELECT m FROM MovDet m WHERE m.fecha = :fecha"),
     @NamedQuery(name = "MovDet.findByCorrelativo", query = "SELECT m FROM MovDet m WHERE m.movDetPK.correlativo = :correlativo"),
     @NamedQuery(name = "MovDet.findByCantidad", query = "SELECT m FROM MovDet m WHERE m.cantidad = :cantidad"),
-    @NamedQuery(name = "MovDet.findBySubTotal", query = "SELECT m FROM MovDet m WHERE m.subTotal = :subTotal"),
+
     @NamedQuery(name = "MovDet.findByIva", query = "SELECT m FROM MovDet m WHERE m.iva = :iva"),
     @NamedQuery(name = "MovDet.findByTotal", query = "SELECT m FROM MovDet m WHERE m.total = :total")})
 public class MovDet implements Serializable {
@@ -47,8 +47,8 @@ public class MovDet implements Serializable {
     private Date fecha;
     @Column(name = "cantidad")
     private Integer cantidad;
-    @Column(name = "sub_total")
-    private Long subTotal;
+    @Column(name = "precio")
+    private Long precio;
     @Column(name = "iva")
     private Long iva;
     @Column(name = "total")
@@ -100,12 +100,12 @@ public class MovDet implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Long getSubTotal() {
-        return subTotal;
+    public Long getPrecio() {
+        return precio;
     }
 
-    public void setSubTotal(Long subTotal) {
-        this.subTotal = subTotal;
+    public void setPrecio(Long precio) {
+        this.precio = precio;
     }
 
     public Long getIva() {

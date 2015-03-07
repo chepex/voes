@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoPagoCreateDlg" widgetVar="TipoPagoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoPagoTitle}">
+            <h:form id="TipoPagoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoPagoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTipoPagoLabel_codTipoPago}" for="codTipoPago" />
+                        <p:inputText id="codTipoPago" value="#{tipoPagoController.selected.codTipoPago}" title="#{bundle.CreateTipoPagoTitle_codTipoPago}" required="true" requiredMessage="#{bundle.CreateTipoPagoRequiredMessage_codTipoPago}"/>
+                        <p:outputLabel value="#{bundle.CreateTipoPagoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{tipoPagoController.selected.nombre}" title="#{bundle.CreateTipoPagoTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.CreateTipoPagoLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{tipoPagoController.selected.estado}" title="#{bundle.CreateTipoPagoTitle_estado}" />
+                        <p:outputLabel value="imagen" for="img" />
+                        <p:inputText id="img" value="#{tipoPagoController.selected.img}" title="#{bundle.CreateTipoPagoTitle_estado}" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoPagoController.create}" value="#{bundle.Save}" update="display,:TipoPagoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoPagoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoPagoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

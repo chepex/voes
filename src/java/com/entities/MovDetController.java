@@ -110,6 +110,12 @@ public class MovDetController implements Serializable {
             return "";
         }
         Producto p= productFacade.find(codigo);
+        
+        if(p==null){
+            JsfUtil.addErrorMessage("Producto no existe");
+            return "";
+        }
+        
         selected.setCodProd(p);
         if(selected.getCantidad()==null){
             selected.setCantidad(1);
@@ -129,11 +135,9 @@ public class MovDetController implements Serializable {
             vtotal = vtotal + a;
         }
         
-            
-            this.prepareCreate();
-            codigo=0;
-            
-            return "";
+        this.prepareCreate();
+        codigo=0;            
+        return "";
     }
     
 

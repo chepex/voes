@@ -88,8 +88,21 @@
                 </p:panel>
                 
             </h:form>
+            <center>
+        <p:carousel value="#{tipoPagoController.items}" headerText="Forma de Pago" var="tipoPago" itemStyleClass="carItem">
+              
             
+               <h:panelGrid columns="2" style="width:100%" cellpadding="6" columnClasses="label,value">
+                     <f:facet name="header">
+                        <p:graphicImage name="img/#{tipoPago.img}"   width="120"
+                                  height="90" />
+                    </f:facet>
+                   <h:outputText value="#{tipoPago.nombre}" />                 
+               </h:panelGrid>
 
+              
+           </p:carousel>
+            </center>
             
               <ui:include src="/producto/Search.xhtml"/>
             

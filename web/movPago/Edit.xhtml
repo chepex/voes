@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovPagoEditDlg" widgetVar="MovPagoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMovPagoTitle}">
+            <h:form id="MovPagoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{movPagoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMovPagoLabel_movPagoPK_codTipoPago}" for="movPagoPK_codTipoPago" />
+                        <p:inputText id="movPagoPK_codTipoPago" value="#{movPagoController.selected.movPagoPK.codTipoPago}" title="#{bundle.EditMovPagoTitle_movPagoPK_codTipoPago}" required="true" requiredMessage="#{bundle.EditMovPagoRequiredMessage_movPagoPK_codTipoPago}"/>
+                        <p:outputLabel value="#{bundle.EditMovPagoLabel_movPagoPK_codMov}" for="movPagoPK_codMov" />
+                        <p:inputText id="movPagoPK_codMov" value="#{movPagoController.selected.movPagoPK.codMov}" title="#{bundle.EditMovPagoTitle_movPagoPK_codMov}" required="true" requiredMessage="#{bundle.EditMovPagoRequiredMessage_movPagoPK_codMov}"/>
+                        <p:outputLabel value="#{bundle.EditMovPagoLabel_valor}" for="valor" />
+                        <p:inputText id="valor" value="#{movPagoController.selected.valor}" title="#{bundle.EditMovPagoTitle_valor}" />
+                        <p:outputLabel value="#{bundle.EditMovPagoLabel_correlativo}" for="correlativo" />
+                        <p:inputText id="correlativo" value="#{movPagoController.selected.correlativo}" title="#{bundle.EditMovPagoTitle_correlativo}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movPagoController.update}" value="#{bundle.Save}" update="display,:MovPagoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MovPagoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MovPagoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

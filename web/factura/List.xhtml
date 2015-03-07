@@ -28,7 +28,7 @@
                              
                              
                                                                           
-                            <p:commandButton actionListener="#{movDetController.add}" value="#{bundle.Add}" update="@form :MovDetListForm" />
+                            <p:commandButton actionListener="#{movDetController.add}" value="#{bundle.Add}" update="@form :MovDetListForm :growl" />
                     </p:panelGrid>
                     </center>            
                 </h:panelGroup>
@@ -62,7 +62,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Precio"/>
                             </f:facet>
-                            <h:outputText value="#{item.codProd.precio}"/>
+                            <h:outputText value="#{item.precio}"/>
                         </p:column>                        
                         
                         
@@ -74,10 +74,10 @@
                         </p:column>
 
                     </p:dataTable>
-                    <div align="right" >
+                    <div align="right" style="width:100% " >
                         <p:panelGrid columns="2">
-                                <h:outputText value="Total"/>
-                                <h:outputText value="Total"/>
+                            <h:outputText value="Total" style="font-weight: bold;  font-size: 16px" />
+                            <h:outputText value="Total" style="font-size: 16px" />
                                 
                                                             
                             </p:panelGrid>

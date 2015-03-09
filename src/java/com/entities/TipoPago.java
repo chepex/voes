@@ -6,12 +6,14 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,7 +37,7 @@ public class TipoPago implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "cod_tipo_pago")
-    private Integer codTipoPago;
+    private int codTipoPago;
     @Size(max = 250)
     @Column(name = "nombre")
     private String nombre;
@@ -45,7 +47,8 @@ public class TipoPago implements Serializable {
     @Size(max = 60)
     @Column(name = "img")
     private String img;    
-    
+    @OneToMany(mappedBy = "tipoPago")
+    private List<MovPago> tipoPagoList;    
     
 
     public TipoPago() {
@@ -89,10 +92,25 @@ public class TipoPago implements Serializable {
         this.estado = estado;
     }
 
+    
+
+    public List<MovPago> getTipoPagoList() {
+        return tipoPagoList;
+    }
+
+    public void setTipoPagoList(List<MovPago> tipoPagoList) {
+        this.tipoPagoList = tipoPagoList;
+    }
+
+
+    
+    
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codTipoPago != null ? codTipoPago.hashCode() : 0);
+         int hash = 0;
+        hash += (int) codTipoPago;
+        
         return hash;
     }
 
@@ -102,10 +120,11 @@ public class TipoPago implements Serializable {
         if (!(object instanceof TipoPago)) {
             return false;
         }
+      
         TipoPago other = (TipoPago) object;
-        if ((this.codTipoPago == null && other.codTipoPago != null) || (this.codTipoPago != null && !this.codTipoPago.equals(other.codTipoPago))) {
+        if (this.codTipoPago != other.codTipoPago) {
             return false;
-        }
+        }        
         return true;
     }
 

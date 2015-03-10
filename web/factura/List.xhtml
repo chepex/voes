@@ -87,6 +87,8 @@
                         </div>
                 </p:panel>
                 
+                 <p:hotkey bind="f2" actionListener="#{movDetController.pagar}" update=":growl"/>
+                 
             </h:form>
             <center>
         <p:carousel value="#{tipoPagoController.items}" headerText="Forma de Pago" var="tipoPago" itemStyleClass="carItem">

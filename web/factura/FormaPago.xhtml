@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="facturaFormaPagoDlg" widgetVar="facturaFormaPagoDlg" modal="true" resizable="false" appendTo="@(body)" header="Forma de Pago">            
+            <h:form id="formaPagoForm">
+                    
+                
+                <p:panelGrid style="margin-top:20px">
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="1">*</p:column>                            
+                            <p:column colspan="1">*</p:column>                            
+                            <p:column colspan="1" rowspan="11" >Factura</p:column>                            
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column colspan="1">
+                            <p:outputLabel value="#{bundle.Efectivo} :" for="efectivo"   style="font-size: 190%  !important;"  />
+                        </p:column>
+                        <p:column colspan="1">                            
+                            <p:inputText id="efectivo" value="#{movDetController.vefectivo}" title="#{bundle.Efectivo}"  size="15" style="font-size: 190%  !important;" />
+                        </p:column>
+                        
+                        
+                                <p:column>
+                                    <p:outputLabel value="Total a Pagar"    style="font-size: 190%  !important;"  />
+                                </p:column>
+                        
+                        
+                            
+                        
+
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="1">
+                            <p:outputLabel value="#{bundle.Credito} :" for="credito"  style="font-size: 190%  !important;"  />
+                        </p:column>
+                        <p:column colspan="1">                                
+                            <p:inputText id="credito" value="#{movDetController.vcredito}" title="#{bundle.Credito}" size="15"   style="font-size: 190%  !important;" />                        
+                        </p:column>
+                            <p:column>
+                                    <p:outputLabel value="#{movDetController.vtotal}"  style="font-size: 190%  !important;"  />                                    
+                                </p:column>
+                    </p:row>                    
+                    <p:row>
+                        <p:column colspan="1">
+                            <p:outputLabel value="#{bundle.Cheque} :" for="cheque"  style="font-size: 190%  !important;"   />
+                        </p:column>      
+                        <p:column colspan="1">    
+                            
+                            <p:inputText id="cheque" value="#{movDetController.vcheque}" title="#{bundle.Cheque}"   size="15"   style="font-size: 190%  !important;" />                        
+                        </p:column>
+                    </p:row>
+                    
+                </p:panelGrid>                    
+            </h:form>            
+        </p:dialog>
+
+    </ui:composition>
+</html>

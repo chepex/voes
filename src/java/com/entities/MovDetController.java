@@ -33,10 +33,77 @@ public class MovDetController implements Serializable {
     private int vcor;
     private int codigo;
     private Long vtotal;
+    private TipoPago vtipoPago;
+    private Long Vvalor;
+    private Long Vreferencia;
+    private Long vefectivo;
+    private Long vcredito;
+    private Long vpuntos;
+    private Long vcheque;
     
     public MovDetController() {
     }
 
+    public Long getVefectivo() {
+        return vefectivo;
+    }
+
+    public void setVefectivo(Long vefectivo) {
+        this.vefectivo = vefectivo;
+    }
+
+    public Long getVcredito() {
+        return vcredito;
+    }
+
+    public void setVcredito(Long vcredito) {
+        this.vcredito = vcredito;
+    }
+
+    public Long getVpuntos() {
+        return vpuntos;
+    }
+
+    public void setVpuntos(Long vpuntos) {
+        this.vpuntos = vpuntos;
+    }
+
+    public Long getVcheque() {
+        return vcheque;
+    }
+
+    public void setVcheque(Long vcheque) {
+        this.vcheque = vcheque;
+    }
+
+    
+    public TipoPago getVtipoPago() {
+        return vtipoPago;
+    }
+
+    public void setVtipoPago(TipoPago vtipoPago) {
+        this.vtipoPago = vtipoPago;
+    }
+
+    public Long getVvalor() {
+        return Vvalor;
+    }
+
+    public void setVvalor(Long Vvalor) {
+        this.Vvalor = Vvalor;
+    }
+
+    public Long getVreferencia() {
+        return Vreferencia;
+    }
+
+    public void setVreferencia(Long Vreferencia) {
+        this.Vreferencia = Vreferencia;
+    }
+
+    
+    
+    
     public Long getVtotal() {
         return vtotal;
     }

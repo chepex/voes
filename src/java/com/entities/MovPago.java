@@ -10,6 +10,8 @@ import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -36,6 +38,12 @@ public class MovPago implements Serializable {
     private BigInteger valor;
     @Column(name = "correlativo")
     private Integer correlativo;
+    @Column(name = "referencia")
+    private String referencia;
+    @JoinColumn(name = "cod_tipo_pago", referencedColumnName = "cod_tipo_pago" ,insertable=false, updatable=false)
+    @ManyToOne
+    private TipoPago tipoPago;    
+    
 
     public MovPago() {
     }
@@ -48,6 +56,15 @@ public class MovPago implements Serializable {
         this.movPagoPK = new MovPagoPK(codTipoPago, codMov);
     }
 
+    public TipoPago getTipoPago() {
+        return tipoPago;
+    }
+
+    public void setTipoPago(TipoPago tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+    
     public MovPagoPK getMovPagoPK() {
         return movPagoPK;
     }
@@ -56,6 +73,15 @@ public class MovPago implements Serializable {
         this.movPagoPK = movPagoPK;
     }
 
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    
     public BigInteger getValor() {
         return valor;
     }

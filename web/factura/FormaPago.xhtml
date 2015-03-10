@@ -27,16 +27,9 @@
                         <p:column colspan="1">                            
                             <p:inputText id="efectivo" value="#{movDetController.vefectivo}" title="#{bundle.Efectivo}"  size="15" style="font-size: 190%  !important;" />
                         </p:column>
-                        
-                        
-                                <p:column>
-                                    <p:outputLabel value="Total a Pagar"    style="font-size: 190%  !important;"  />
-                                </p:column>
-                        
-                        
-                            
-                        
-
+                        <p:column>
+                            <p:outputLabel value="Total a Pagar"    style="font-size: 190%  !important;"  />
+                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="1">
@@ -45,19 +38,35 @@
                         <p:column colspan="1">                                
                             <p:inputText id="credito" value="#{movDetController.vcredito}" title="#{bundle.Credito}" size="15"   style="font-size: 190%  !important;" />                        
                         </p:column>
-                            <p:column>
-                                    <p:outputLabel value="#{movDetController.vtotal}"  style="font-size: 190%  !important;"  />                                    
-                                </p:column>
+                        <p:column>
+                                <p:outputLabel value="#{movDetController.vtotal}"  style="font-size: 190%  !important;"  />                                    
+                        </p:column>
                     </p:row>                    
                     <p:row>
                         <p:column colspan="1">
                             <p:outputLabel value="#{bundle.Cheque} :" for="cheque"  style="font-size: 190%  !important;"   />
                         </p:column>      
-                        <p:column colspan="1">    
-                            
+                        <p:column colspan="1">                                
                             <p:inputText id="cheque" value="#{movDetController.vcheque}" title="#{bundle.Cheque}"   size="15"   style="font-size: 190%  !important;" />                        
                         </p:column>
                     </p:row>
+                    <p:row>
+                        <p:column colspan="1">
+                            <p:outputLabel value="#{bundle.Vale} :" for="Vales"  style="font-size: 190%  !important;"   />
+                        </p:column>      
+                        <p:column colspan="1">                                
+                            <p:inputText id="Vales" value="#{movDetController.vVales}" title="#{bundle.Vale}"   size="15"   style="font-size: 190%  !important;" />                        
+                        </p:column>
+                    </p:row>                      
+                    <p:row>
+                        <p:column colspan="1">
+                            <p:outputLabel value="#{bundle.Transferencia} :" for="Transferencia"  style="font-size: 190%  !important;"   />
+                        </p:column>      
+                        <p:column colspan="1">                                
+                            <p:inputText id="Transferencia" value="#{movDetController.vTransferencia}" title="#{bundle.Transferencia}"   size="15"   style="font-size: 190%  !important;" />                        
+                        </p:column>
+                    </p:row>  
+                    
                     
                 </p:panelGrid>                    
             </h:form>            

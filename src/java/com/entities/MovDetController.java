@@ -40,6 +40,10 @@ public class MovDetController implements Serializable {
     private Long vcredito;
     private Long vpuntos;
     private Long vcheque;
+    private Long vVales;
+    private Long vTransferencia;
+    
+    
     
     public MovDetController() {
     }
@@ -48,6 +52,23 @@ public class MovDetController implements Serializable {
         return vefectivo;
     }
 
+    public Long getvVales() {
+        return vVales;
+    }
+
+    public void setvVales(Long vVales) {
+        this.vVales = vVales;
+    }
+
+    public Long getvTransferencia() {
+        return vTransferencia;
+    }
+
+    public void setvTransferencia(Long vTransferencia) {
+        this.vTransferencia = vTransferencia;
+    }
+
+    
     public void setVefectivo(Long vefectivo) {
         this.vefectivo = vefectivo;
     }

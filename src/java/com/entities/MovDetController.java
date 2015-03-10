@@ -145,6 +145,10 @@ public class MovDetController implements Serializable {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MovDetUpdated"));
     }
 
+    public void pagar() {
+         JsfUtil.addErrorMessage("Pago realizado correctamente");
+    }
+       
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MovDetDeleted"));
         if (!JsfUtil.isValidationFailed()) {

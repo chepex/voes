@@ -40,33 +40,61 @@ public class MovDetController implements Serializable {
     private Long vcredito;
     private Long vpuntos;
     private Long vcheque;
-    private Long vVales;
-    private Long vTransferencia;
+    private Long vales;
+    private Long vtransferencia  ;
+    private Long vpendiente;
+    private Long vcambio;
     
     
     
     public MovDetController() {
     }
 
+    public Long getVtransferencia() {
+        return vtransferencia;
+    }
+
+    public void setVtransferencia(Long vtransferencia) {
+        this.vtransferencia = vtransferencia;
+    }
+
+    public Long getVpendiente() {
+        return vpendiente;
+    }
+
+    public void setVpendiente(Long vpendiente) {
+        this.vpendiente = vpendiente;
+    }
+
+    public Long getVcambio() {
+        return vcambio;
+    }
+
+    public void setVcambio(Long vcambio) {
+        this.vcambio = vcambio;
+    }
+
+
+    
+    
+
+
+    
     public Long getVefectivo() {
         return vefectivo;
     }
 
-    public Long getvVales() {
-        return vVales;
+    public Long getVales() {
+        return vales;
     }
 
-    public void setvVales(Long vVales) {
-        this.vVales = vVales;
+    public void setVales(Long vales) {
+        this.vales = vales;
     }
 
-    public Long getvTransferencia() {
-        return vTransferencia;
-    }
 
-    public void setvTransferencia(Long vTransferencia) {
-        this.vTransferencia = vTransferencia;
-    }
+
+
 
     
     public void setVefectivo(Long vefectivo) {
@@ -169,6 +197,7 @@ public class MovDetController implements Serializable {
         selected.setMovDetPK(new com.entities.MovDetPK());
         if(lmovdet.isEmpty()){
             vcor = 0;
+            
         }
         vcor++;
         selected.getMovDetPK().setCorrelativo(vcor);
@@ -180,6 +209,13 @@ public class MovDetController implements Serializable {
 
     public MovDet prepareCreate() {
         selected = new MovDet();
+        this.vpendiente=Long.valueOf(0);
+            this.vtransferencia = Long.valueOf(0);
+            this.vcheque=Long.valueOf(0);
+            this.vcredito=Long.valueOf(0);
+            this.vefectivo=Long.valueOf(0);
+            this.vpuntos=Long.valueOf(0);
+            this.vales=Long.valueOf(0);
         initializeEmbeddableKey();
         return selected;
     }
@@ -337,4 +373,15 @@ public class MovDetController implements Serializable {
 
     }
 
+    public String actualizarTotal()
+    {
+       //this.vpendiente = this.vtotal - this.vcheque - this.vefectivo -this.vpuntos - this.vtransferencia -this.vcredito;
+        this.vpendiente = this.vtotal -  this.vefectivo - this.vcheque - this.vpuntos - this.vtransferencia - this.vcredito;
+        if(vpendiente <0){
+            vpendiente= Long.valueOf(0);
+        }
+        return "";
+    }
+    
 }
+            

@@ -25,7 +25,11 @@
                             <p:outputLabel value="#{bundle.Efectivo} :" for="efectivo"   style="font-size: 190%  !important;"  />
                         </p:column>
                         <p:column colspan="1">                            
-                            <p:inputText id="efectivo" value="#{movDetController.vefectivo}" title="#{bundle.Efectivo}"  size="15" style="font-size: 190%  !important;" />
+                             
+                            <p:inputText id="efectivo" value="#{movDetController.vefectivo}" title="#{bundle.Efectivo}"  size="15" style="font-size: 190%  !important;" >
+                                <p:ajax event="blur" update="@form" listener="#{movDetController.actualizarTotal()}"/>
+                            </p:inputText>    
+                                
                         </p:column>
                         <p:column>
                             <p:outputLabel value="Total a Pagar"    style="font-size: 190%  !important;"  />
@@ -39,7 +43,11 @@
                             <p:inputText id="credito" value="#{movDetController.vcredito}" title="#{bundle.Credito}" size="15"   style="font-size: 190%  !important;" />                        
                         </p:column>
                         <p:column>
-                                <p:outputLabel value="#{movDetController.vtotal}"  style="font-size: 190%  !important;"  />                                    
+                            
+                                <p:outputLabel value="#{movDetController.vtotal}"  style="font-size: 190%  !important;"  >                                    
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </p:outputLabel>
+                               
                         </p:column>
                     </p:row>                    
                     <p:row>
@@ -49,13 +57,23 @@
                         <p:column colspan="1">                                
                             <p:inputText id="cheque" value="#{movDetController.vcheque}" title="#{bundle.Cheque}"   size="15"   style="font-size: 190%  !important;" />                        
                         </p:column>
+                        <p:column>
+                            <p:outputLabel value="Pendiente"    style="font-size: 190%  !important;"  />
+                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="1">
                             <p:outputLabel value="#{bundle.Vale} :" for="Vales"  style="font-size: 190%  !important;"   />
                         </p:column>      
                         <p:column colspan="1">                                
-                            <p:inputText id="Vales" value="#{movDetController.vVales}" title="#{bundle.Vale}"   size="15"   style="font-size: 190%  !important;" />                        
+                            <p:inputText id="Vales" value="#{movDetController.vales}" title="#{bundle.Vale}"   size="15"   style="font-size: 190%  !important;" />                        
+                        </p:column>
+                        <p:column>
+                            
+                            <p:outputLabel value="#{movDetController.vpendiente}"  style="font-size: 190%  !important;"  >                                    
+                        <f:convertNumber type="currency" currencySymbol="$" />
+                    </p:outputLabel>
+                               
                         </p:column>
                     </p:row>                      
                     <p:row>
@@ -63,7 +81,7 @@
                             <p:outputLabel value="#{bundle.Transferencia} :" for="Transferencia"  style="font-size: 190%  !important;"   />
                         </p:column>      
                         <p:column colspan="1">                                
-                            <p:inputText id="Transferencia" value="#{movDetController.vTransferencia}" title="#{bundle.Transferencia}"   size="15"   style="font-size: 190%  !important;" />                        
+                            <p:inputText id="Transferencia" value="#{movDetController.vtransferencia}" title="#{bundle.Transferencia}"   size="15"   style="font-size: 190%  !important;" />                        
                         </p:column>
                     </p:row>  
                     

@@ -6,6 +6,7 @@ import com.entities.util.JsfUtil.PersistAction;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +39,7 @@ public class MovDetController implements Serializable {
     private Long Vreferencia;
     private Long vefectivo;
     private Long vcredito;
-    private Long vpuntos;
+
     private Long vcheque;
     private Long vales;
     private Long vtransferencia  ;
@@ -109,13 +110,7 @@ public class MovDetController implements Serializable {
         this.vcredito = vcredito;
     }
 
-    public Long getVpuntos() {
-        return vpuntos;
-    }
-
-    public void setVpuntos(Long vpuntos) {
-        this.vpuntos = vpuntos;
-    }
+   
 
     public Long getVcheque() {
         return vcheque;
@@ -214,8 +209,8 @@ public class MovDetController implements Serializable {
             this.vcheque=Long.valueOf(0);
             this.vcredito=Long.valueOf(0);
             this.vefectivo=Long.valueOf(0);
-            this.vpuntos=Long.valueOf(0);
             this.vales=Long.valueOf(0);
+            
         initializeEmbeddableKey();
         return selected;
     }
@@ -375,13 +370,42 @@ public class MovDetController implements Serializable {
 
     public String actualizarTotal()
     {
+        vcambio = (long)0;
        //this.vpendiente = this.vtotal - this.vcheque - this.vefectivo -this.vpuntos - this.vtransferencia -this.vcredito;
-        this.vpendiente = this.vtotal -  this.vefectivo - this.vcheque - this.vpuntos - this.vtransferencia - this.vcredito;
+        Long att =   this.vefectivo + this.vcheque + this.vales + this.vtransferencia + this.vcredito;
+        
+        
+        /*si pago es mayor q total cambio >0*/
+        System.out.println("----->vefectivo"+vefectivo);
+        System.out.println("----->vcheque"+vcheque);
+        System.out.println("----->vales"+vales);
+        System.out.println("----->vtransferencia"+vtransferencia);
+        System.out.println("----->vcredito"+vcredito);
+        System.out.println("----->att"+att);
+        System.out.println("----->total"+vtotal);
+        if(att > vtotal){
+            vcambio =    this.vtotal -  att;
+        }else{
+            vpendiente = this.vtotal -  att;
+        }
         if(vpendiente <0){
             vpendiente= Long.valueOf(0);
         }
+        
+        
+        
+        
+        
         return "";
     }
     
+    public String limpiar(){
+        lmovdet =    new ArrayList<MovDet>();
+        this.vcambio=  Long.valueOf(0);
+        this.vpendiente= Long.valueOf(0);
+        this.vtotal= Long.valueOf(0);
+        this.prepareCreate();
+        return "";
+    }
 }
             

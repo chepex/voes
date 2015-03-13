@@ -4,6 +4,7 @@ import com.entities.util.JsfUtil;
 import com.entities.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,15 @@ public class MovDetController implements Serializable {
 
     @EJB
     private com.entities.ProductoFacade productFacade;    
+    
+    @EJB
+    private com.entities.TipoPagoFacade tipoPagoFacade;     
     private List<MovDet> items = null;
+    
+    
     private MovDet selected;
     private List<MovDet> lmovdet =  new ArrayList<MovDet>();
+    private List<MovPago> lmovpago =  new ArrayList<MovPago>();
     private int vcor;
     private int codigo;
     private Long vtotal;
@@ -51,6 +58,16 @@ public class MovDetController implements Serializable {
     public MovDetController() {
     }
 
+    
+    public List<MovPago> getLmovpago() {
+        return lmovpago;
+    }
+
+    public void setLmovpago(List<MovPago> lmovpago) {
+        this.lmovpago = lmovpago;
+    }
+
+    
     public Long getVtransferencia() {
         return vtransferencia;
     }
@@ -192,7 +209,17 @@ public class MovDetController implements Serializable {
         selected.setMovDetPK(new com.entities.MovDetPK());
         if(lmovdet.isEmpty()){
             vcor = 0;
-            
+                if(lmovpago.isEmpty() ){
+                    List <TipoPago> ltpago = tipoPagoFacade.findAll();                    
+                    for(TipoPago tp: ltpago ){
+                        System.out.println("pagos"+tp);
+                        System.out.println("lmovpago"+lmovpago);
+                        MovPago  mp= new MovPago(tp.getCodTipoPago(),0);
+                        mp.setTipoPago(tp);
+                        mp.setValor(BigInteger.ZERO);
+                        lmovpago.add(mp);
+                    }
+                }
         }
         vcor++;
         selected.getMovDetPK().setCorrelativo(vcor);
@@ -203,15 +230,11 @@ public class MovDetController implements Serializable {
     }
 
     public MovDet prepareCreate() {
+           
+        
         selected = new MovDet();
-        this.vpendiente=Long.valueOf(0);
-            this.vtransferencia = Long.valueOf(0);
-            this.vcheque=Long.valueOf(0);
-            this.vcredito=Long.valueOf(0);
-            this.vefectivo=Long.valueOf(0);
-            this.vales=Long.valueOf(0);
-            
         initializeEmbeddableKey();
+        
         return selected;
     }
 
@@ -265,7 +288,11 @@ public class MovDetController implements Serializable {
     }
 
     public void pagar() {
-         JsfUtil.addErrorMessage("Pago realizado correctamente");
+        
+        
+        limpiar();
+        
+        JsfUtil.addErrorMessage("Pago realizado correctamente");
     }
        
     public void destroy() {
@@ -401,11 +428,26 @@ public class MovDetController implements Serializable {
     
     public String limpiar(){
         lmovdet =    new ArrayList<MovDet>();
+        lmovpago=    new ArrayList<MovPago>();
+        this.vpendiente=Long.valueOf(0);
+        this.vtransferencia = Long.valueOf(0);
+        this.vcheque=Long.valueOf(0);
+        this.vcredito=Long.valueOf(0);
+        this.vefectivo=Long.valueOf(0);
+        this.vales=Long.valueOf(0);
         this.vcambio=  Long.valueOf(0);
         this.vpendiente= Long.valueOf(0);
-        this.vtotal= Long.valueOf(0);
-        this.prepareCreate();
+        this.vtotal= Long.valueOf(0);        
         return "";
     }
+    
+    public String cancelar(){
+        limpiar();
+        this.prepareCreate();
+        
+        
+        return "";
+    }
+    
 }
             

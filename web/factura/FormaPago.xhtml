@@ -7,110 +7,84 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
+        <p:dialog id="facturaFormaPagoDlg" widgetVar="facturaFormaPagoDlg" modal="true" resizable="false" appendTo="@(body)" header="Forma de Pago">                      
+            <p:panelGrid style="margin-top:20px">
+                  <f:facet name="header">
+                <p:row>
+              
+                    <p:column >111</p:column>
+                    <p:column >211</p:column>
+             
+                    </p:row>
+                         </f:facet>
+                <p:row>
+                <p:column >
+                <h:form id="formaPagoForm">
 
-        <p:dialog id="facturaFormaPagoDlg" widgetVar="facturaFormaPagoDlg" modal="true" resizable="false" appendTo="@(body)" header="Forma de Pago">            
-            <h:form id="formaPagoForm">
-                    
-                
-                <p:panelGrid style="margin-top:20px">
-                    <f:facet name="header">
-                        <p:row>
-                            <p:column colspan="1">*</p:column>                            
-                            <p:column colspan="1">*</p:column>                            
-                            <p:column colspan="1" rowspan="11" >Factura</p:column>                            
-                        </p:row>
-                    </f:facet>
-                    <p:row>
-                        <p:column colspan="1">
-                            <p:outputLabel value="#{bundle.Efectivo} :" for="efectivo"   style="font-size: 190%  !important;"  />
-                        </p:column>
-                        <p:column colspan="1">                            
-                             
-                            <p:inputText id="efectivo" value="#{movDetController.vefectivo}" title="#{bundle.Efectivo}"  size="15" style="font-size: 190%  !important;" >
-                                <p:ajax event="blur" update="PF_CAMBIO PF_TOTAL PF_PENDIENTE" listener="#{movDetController.actualizarTotal()}"/>
-                            </p:inputText>    
-                                
-                        </p:column>
-                        <p:column>
-                            <p:outputLabel value="Total a Pagar"    style="font-size: 190%  !important;"  />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="1">
-                            <p:outputLabel value="#{bundle.Credito} :" for="credito"  style="font-size: 190%  !important;"  />
-                        </p:column>
-                        <p:column colspan="1">                                
-                            <p:inputText id="credito" value="#{movDetController.vcredito}" title="#{bundle.Credito}" size="15"   style="font-size: 190%  !important;" >                        
-                                <p:ajax event="blur" update="@form" listener="#{movDetController.actualizarTotal()}"/>
-                            </p:inputText>    
-                        </p:column>
-                        <p:column>
+                        <p:dataTable id="datalist2" value="#{movDetController.lmovpago}" var="item"
+                            selectionMode="single" selection="#{movPagoController.selected}"
+                            paginator="true"
+                            rowKey="#{item.movPagoPK}"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            style="width:30%;"
+                            >
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMovDetTitle_codProd}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tipoPago.nombre}"/>
+                            </p:column> 
+                            <p:column>
+                                <p:inputText  id="a#{item.tipoPago.nombre}" value="#{pagos.valor}"  size="4"  style="font-size: 190%  !important;"  > 
+                                    <p:ajax event="blur" update="@form" listener="#{movDetController.actualizarTotal()}"/>                                                    
+                                </p:inputText> 
+                            </p:column>
+                        </p:dataTable>
+
+                </h:form>  
+                </p:column>
+                    <p:column >
+                        <p:panelGrid style="margin-top:20px">
+                            <p:row>
+                                <p:column >
+                                     Total
+                                </p:column>
+                                <p:column >
+                                    <p:outputLabel id="PF_TOTAL" value="#{movDetController.vtotal}"  style="font-size: 190%  !important;"  >  
+                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                    </p:outputLabel>
+                                </p:column>
+                            </p:row> 
+                            <p:row>
+                                <p:column >
+                                         Pendiente
+                                </p:column>
+                                <p:column >
+                                   <p:outputLabel id="PF_PENDIENTE" value="#{movDetController.vpendiente}"  style="font-size: 190%  !important;"  >
+                                       <f:convertNumber type="currency" currencySymbol="$" />
+                                   </p:outputLabel>  
+                                </p:column>                                     
+                            </p:row>
+                            <p:row>
+                                <p:column >
+                                      Cambio 
+                                </p:column>
+                                <p:column >
+                                    <p:outputLabel id="PF_CAMBIO" value="#{movDetController.vcambio}"  style="font-size: 190%  !important;"  >  
+                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                    </p:outputLabel>
+                                </p:column>
+                            </p:row>
                             
-                                <p:outputLabel id="PF_TOTAL" value="#{movDetController.vtotal}"  style="font-size: 190%  !important;"  >                                    
-                                    <f:convertNumber type="currency" currencySymbol="$" />
-                                </p:outputLabel>
-                               
-                        </p:column>
-                    </p:row>                    
-                    <p:row>
-                        <p:column colspan="1">
-                            <p:outputLabel value="#{bundle.Cheque} :"   style="font-size: 190%  !important;"   />
-                        </p:column>      
-                        <p:column colspan="1">                                
-                            <p:inputText  value="#{movDetController.vcheque}" title="#{bundle.Cheque}"   size="15"   style="font-size: 190%  !important;" > 
-                                <p:ajax event="blur" update="PF_CAMBIO PF_TOTAL PF_PENDIENTE" listener="#{movDetController.actualizarTotal()}"/>
-                            </p:inputText>    
-                        </p:column>
-                        <p:column>
-                            <p:outputLabel value="Pendiente"    style="font-size: 190%  !important;"  />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="1">
-                            <p:outputLabel value="#{bundle.Vale} :" for="Vales"  style="font-size: 190%  !important;"   />
-                                
-                        </p:column>      
-                        <p:column colspan="1">                                
-                            <p:inputText id="Vales" value="#{movDetController.vales}" title="#{bundle.Vale}"   size="15"   style="font-size: 190%  !important;" >                        
-                                <p:ajax event="blur" update="PF_CAMBIO PF_TOTAL PF_PENDIENTE" listener="#{movDetController.actualizarTotal()}"/>
-                            </p:inputText>    
-                        </p:column>
-                        <p:column>
-                            
-                            <p:outputLabel id="PF_PENDIENTE" value="#{movDetController.vpendiente}"  style="font-size: 190%  !important;"  >                                    
-                        <f:convertNumber type="currency" currencySymbol="$" />
-                    </p:outputLabel>
-                               
-                        </p:column>
-                    </p:row>                      
-                    <p:row>
-                        <p:column colspan="1">
-                            <p:outputLabel value="#{bundle.Transferencia} :"  style="font-size: 190%  !important;"   />
-                        </p:column>      
-                        <p:column colspan="1">                                
-                            <p:inputText id="Transferencia" value="#{movDetController.vtransferencia}" title="#{bundle.Transferencia}"   size="15"   style="font-size: 190%  !important;" >                        
-                                <p:ajax event="blur" update="@form" listener="#{movDetController.actualizarTotal()}"/>
-                            </p:inputText>    
-                        </p:column>
-                        <p:column>                            
-                            <p:outputLabel value="#{bundle.Cambio} "   style="font-size: 190%  !important;"   />
-                        </p:column>                        
-                    </p:row>  
-                    <p:row >
-                        <p:column colspan="2">
-                            <p:button  value="Asignar Credito" icon="ui-icon-star">
-                                <f:param name="productId" value="10" />
-                            </p:button>
-                        </p:column>
-                        <p:column>                            
-                            <p:outputLabel id="PF_CAMBIO" value="#{movDetController.vcambio}"  style="font-size: 190%  !important;"  >                                    
-                                <f:convertNumber type="currency" currencySymbol="$" />
-                            </p:outputLabel>                               
-                        </p:column>                        
-                    </p:row>
-                    
-                </p:panelGrid>                    
-            </h:form>            
+                        </p:panelGrid>
+                       
+                       
+                   
+                          
+                    </p:column>
+                </p:row>
+                </p:panelGrid>
         </p:dialog>
 
     </ui:composition>

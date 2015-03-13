@@ -28,7 +28,7 @@
                              
                              
                                                                           
-                            <p:commandButton actionListener="#{movDetController.add}" value="#{bundle.Add}" update="@form :MovDetListForm :growl" />
+                            <p:commandButton actionListener="#{movDetController.add}" value="#{bundle.Add}" update=" @form :MovDetListForm :growl" />
                     </p:panelGrid>
                     </center>            
                 </h:panelGroup>
@@ -77,37 +77,30 @@
                     <div align="right" style="width:100% " >
                         <p:panelGrid columns="3">
                             <p:commandButton id="Pagar"   rendered="#{movDetController.lmovdet!=null}" icon="ui-icon-cart"  value="Pagar" update=":formaPagoForm" oncomplete="PF('facturaFormaPagoDlg').show()"  />                             
-                        <p:commandButton id="Cancelar"   rendered="#{movDetController.lmovdet!=null}" icon="ui-icon-close"  value="Cancelar" update="@form" actionListener="#{movDetController.limpiar()}"  />                             
+                            <p:commandButton id="Cancelar"   rendered="#{movDetController.lmovdet!=null}" icon="ui-icon-close"  value="Cancelar" update="@all" actionListener="#{movDetController.cancelar()}"  />                             
                             <h:outputText value="Total" style="font-weight: bold;  font-size: 16px" />
                              <h:outputText value="#{movDetController.vtotal}">
-                    <f:convertNumber type="currency" currencySymbol="$" />
-                </h:outputText>
-                            
-                                
-                                                            
-                            </p:panelGrid>
+                                <f:convertNumber type="currency" currencySymbol="$" />
+                            </h:outputText>                 
+                        </p:panelGrid>
                         </div>
                 </p:panel>
                 
                  <p:hotkey bind="f2" actionListener="#{movDetController.pagar}" update=":growl"/>
                  
             </h:form>
+            <h:form id="Pagos">                 
+                <p:carousel value="#{movDetController.lmovpago}" headerText="Forma de Pago" var="pagos" numVisible="5" easing="easeOutBounce" styleClass="carouselAdvanced">
+                   <h:panelGrid columns="3" style="width:100%"  columnClasses="label,value">                     
+                       <p:graphicImage name="img/#{pagos.tipoPago.img}"   width="40" height="30" />                    
+                       <p:inputText  id="a#{pagos.tipoPago.nombre}" value="#{pagos.valor}"  size="4"  style="font-size: 190%  !important;"  > 
+                           <p:ajax event="blur" update="@form" listener="#{movDetController.actualizarTotal()}"/>                                                    
+                       </p:inputText> 
+                   </h:panelGrid>
+                </p:carousel>            
+            </h:form>
             
-        <p:carousel value="#{tipoPagoController.items}" headerText="Forma de Pago" var="tipoPago" itemStyleClass="carItem">
-              
-            
-               <h:panelGrid columns="2" style="width:100%" cellpadding="6" columnClasses="label,value">
-                     <f:facet name="header">
-                        <p:graphicImage name="img/#{tipoPago.img}"   width="120"
-                                  height="90" />
-                    </f:facet>
-                   <h:outputText value="#{tipoPago.nombre}" />                 
-               </h:panelGrid>
-
-              
-           </p:carousel>
-            
-            
+           
               <ui:include src="/producto/Search.xhtml"/>
               <ui:include src="FormaPago.xhtml"/>
             

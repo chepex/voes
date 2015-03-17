@@ -7,44 +7,38 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="facturaFormaPagoDlg" widgetVar="facturaFormaPagoDlg" modal="true" resizable="false" appendTo="@(body)" header="Forma de Pago">                      
-            <p:panelGrid style="margin-top:20px">
+        <p:dialog id="facturaFormaPagoDlg" style="width:70%;" widgetVar="facturaFormaPagoDlg" modal="true" resizable="false" appendTo="@(body)" header="Forma de Pago">                      
+            <p:panelGrid >
                   <f:facet name="header">
-                <p:row>
-              
-                    <p:column >111</p:column>
-                    <p:column >211</p:column>
-             
-                    </p:row>
+                <p:row>              
+                    <p:column >Tipo Pago</p:column>
+                    <p:column >Totales</p:column>             
+                </p:row>
                          </f:facet>
                 <p:row>
                 <p:column >
                 <h:form id="formaPagoForm">
-
-                        <p:dataTable id="datalist2" value="#{movDetController.lmovpago}" var="item"
-                            selectionMode="single" selection="#{movPagoController.selected}"
-                            paginator="true"
-                            rowKey="#{item.movPagoPK}"
-                            rows="10"
-                            rowsPerPageTemplate="10,20,30,40,50"
-                            style="width:30%;"
-                            >
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListMovDetTitle_codProd}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.tipoPago.nombre}"/>
-                            </p:column> 
-                            <p:column>
-                                <p:inputText  id="a#{item.tipoPago.nombre}" value="#{pagos.valor}"  size="4"  style="font-size: 190%  !important;"  > 
-                                    <p:ajax event="blur" update="@form" listener="#{movDetController.actualizarTotal()}"/>                                                    
-                                </p:inputText> 
-                            </p:column>
-                        </p:dataTable>
-
+                    <p:dataTable id="datalist2" value="#{movDetController.lmovpago}" var="item"
+                        selectionMode="single" selection="#{movPagoController.selected}"                            
+                        rowKey="#{item.movPagoPK}"
+                        rows="10"         
+                        >
+                        <p:column>
+                            <p:graphicImage name="img/#{item.tipoPago.img}"   width="40" height="30" />                    
+                            <h:outputText value="   #{item.tipoPago.nombre}"/>
+                        </p:column> 
+                        <p:column>
+                            <p:inputText  id="a#{item.tipoPago.nombre}" value="#{item.valor}"  size="4"  style="font-size: 190%  !important;"  > 
+                                <p:ajax event="blur" update=" :formTotales" listener="#{movDetController.actualizarTotal()}"/>                                                    
+                            </p:inputText> 
+                        </p:column>
+                    </p:dataTable>
                 </h:form>  
                 </p:column>
                     <p:column >
+                        <h:form id="formTotales">
+                            
+                            
                         <p:panelGrid style="margin-top:20px">
                             <p:row>
                                 <p:column >
@@ -76,11 +70,18 @@
                                     </p:outputLabel>
                                 </p:column>
                             </p:row>
+                            <p:row>
+                                <p:column colspan="2" >
+                                    <center>
+                                        <p:commandButton id="Facturar"   icon="ui-icon-cart" value="Facturar" />
+                                    </center>
+                                </p:column>
+                            </p:row>
                             
                         </p:panelGrid>
                        
                        
-                   
+                        </h:form>    
                           
                     </p:column>
                 </p:row>

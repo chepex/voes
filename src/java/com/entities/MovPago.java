@@ -6,6 +6,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -35,7 +36,7 @@ public class MovPago implements Serializable {
     @EmbeddedId
     protected MovPagoPK movPagoPK;
     @Column(name = "valor")
-    private BigInteger valor;
+    private BigDecimal valor;
     @Column(name = "correlativo")
     private Integer correlativo;
     @Column(name = "referencia")
@@ -81,14 +82,15 @@ public class MovPago implements Serializable {
         this.referencia = referencia;
     }
 
-    
-    public BigInteger getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(BigInteger valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
+
+    
 
     public Integer getCorrelativo() {
         return correlativo;

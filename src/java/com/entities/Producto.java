@@ -6,6 +6,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -47,15 +48,15 @@ public class Producto implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "costo")
-    private Integer costo;
+    private BigDecimal costo;
     @Column(name = "precio")
-    private Long precio;
+    private BigDecimal precio;
     @Column(name = "existencia")
-    private Integer existencia;
+    private BigDecimal existencia;
     @Column(name = "max_existencia")
-    private Integer maxExistencia;
+    private BigDecimal maxExistencia;
     @Column(name = "min_existencia")
-    private Integer minExistencia;
+    private BigDecimal minExistencia;
     @OneToMany(mappedBy = "codProd")
     private List<MovDet> movDetList;
 
@@ -82,45 +83,47 @@ public class Producto implements Serializable {
         this.nombre = nombre;
     }
 
-    public Integer getCosto() {
+    public BigDecimal getCosto() {
         return costo;
     }
 
-    public void setCosto(Integer costo) {
+    public void setCosto(BigDecimal costo) {
         this.costo = costo;
     }
 
-    public Long getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Long precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
-    public Integer getExistencia() {
+    public BigDecimal getExistencia() {
         return existencia;
     }
 
-    public void setExistencia(Integer existencia) {
+    public void setExistencia(BigDecimal existencia) {
         this.existencia = existencia;
     }
 
-    public Integer getMaxExistencia() {
+    public BigDecimal getMaxExistencia() {
         return maxExistencia;
     }
 
-    public void setMaxExistencia(Integer maxExistencia) {
+    public void setMaxExistencia(BigDecimal maxExistencia) {
         this.maxExistencia = maxExistencia;
     }
 
-    public Integer getMinExistencia() {
+    public BigDecimal getMinExistencia() {
         return minExistencia;
     }
 
-    public void setMinExistencia(Integer minExistencia) {
+    public void setMinExistencia(BigDecimal minExistencia) {
         this.minExistencia = minExistencia;
     }
+
+    
 
     @XmlTransient
     public List<MovDet> getMovDetList() {

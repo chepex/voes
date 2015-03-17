@@ -6,6 +6,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -48,11 +49,11 @@ public class MovDet implements Serializable {
     @Column(name = "cantidad")
     private Integer cantidad;
     @Column(name = "precio")
-    private Long precio;
+    private BigDecimal precio;
     @Column(name = "iva")
-    private Long iva;
+    private BigDecimal iva;
     @Column(name = "total")
-    private Long total;
+    private BigDecimal total;
     @JoinColumn(name = "cod_prod", referencedColumnName = "cod_prod")
     @ManyToOne
     private Producto codProd;
@@ -100,30 +101,31 @@ public class MovDet implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Long getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Long precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
-    public Long getIva() {
+    public BigDecimal getIva() {
         return iva;
     }
 
-    public void setIva(Long iva) {
+    public void setIva(BigDecimal iva) {
         this.iva = iva;
     }
 
-    public Long getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Long total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
+    
     public Producto getCodProd() {
         return codProd;
     }

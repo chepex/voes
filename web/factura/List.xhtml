@@ -62,7 +62,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Precio"/>
                             </f:facet>
-                            <h:outputText value="#{item.precio}"/>
+                            <h:outputText value="#{item.precio}">
+                                 <f:convertNumber type="currency" currencySymbol="$" />
+                            </h:outputText>
                         </p:column>                        
                         
                         
@@ -70,7 +72,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMovDetTitle_total}"/>
                             </f:facet>
-                            <h:outputText value="#{item.total}"/>
+                            <h:outputText value="#{item.total}">
+                                 <f:convertNumber type="currency" currencySymbol="$" />
+                            </h:outputText>
                         </p:column>
 
                     </p:dataTable>
@@ -88,16 +92,6 @@
                 
                  <p:hotkey bind="f2" actionListener="#{movDetController.pagar}" update=":growl"/>
                  
-            </h:form>
-            <h:form id="Pagos">                 
-                <p:carousel value="#{movDetController.lmovpago}" headerText="Forma de Pago" var="pagos" numVisible="5" easing="easeOutBounce" styleClass="carouselAdvanced">
-                   <h:panelGrid columns="3" style="width:100%"  columnClasses="label,value">                     
-                       <p:graphicImage name="img/#{pagos.tipoPago.img}"   width="40" height="30" />                    
-                       <p:inputText  id="a#{pagos.tipoPago.nombre}" value="#{pagos.valor}"  size="4"  style="font-size: 190%  !important;"  > 
-                           <p:ajax event="blur" update="@form" listener="#{movDetController.actualizarTotal()}"/>                                                    
-                       </p:inputText> 
-                   </h:panelGrid>
-                </p:carousel>            
             </h:form>
             
            

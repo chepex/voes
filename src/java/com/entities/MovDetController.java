@@ -4,6 +4,7 @@ import com.entities.util.JsfUtil;
 import com.entities.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,24 +41,49 @@ public class MovDetController implements Serializable {
     private List<MovPago> lmovpago =  new ArrayList<MovPago>();
     private int vcor;
     private int codigo;
-    private Long vtotal;
+    private BigDecimal vtotal;
     private TipoPago vtipoPago;
-    private Long Vvalor;
-    private Long Vreferencia;
-    private Long vefectivo;
-    private Long vcredito;
-
-    private Long vcheque;
-    private Long vales;
-    private Long vtransferencia  ;
-    private Long vpendiente;
-    private Long vcambio;
+    private BigDecimal vpendiente;
+    private BigDecimal vcambio;
     
     
     
     public MovDetController() {
     }
 
+    public int getVcor() {
+        return vcor;
+    }
+
+    public void setVcor(int vcor) {
+        this.vcor = vcor;
+    }
+
+    public BigDecimal getVtotal() {
+        return vtotal;
+    }
+
+    public void setVtotal(BigDecimal vtotal) {
+        this.vtotal = vtotal;
+    }
+
+    public BigDecimal getVpendiente() {
+        return vpendiente;
+    }
+
+    public void setVpendiente(BigDecimal vpendiente) {
+        this.vpendiente = vpendiente;
+    }
+
+    public BigDecimal getVcambio() {
+        return vcambio;
+    }
+
+    public void setVcambio(BigDecimal vcambio) {
+        this.vcambio = vcambio;
+    }
+
+    
     
     public List<MovPago> getLmovpago() {
         return lmovpago;
@@ -68,74 +94,6 @@ public class MovDetController implements Serializable {
     }
 
     
-    public Long getVtransferencia() {
-        return vtransferencia;
-    }
-
-    public void setVtransferencia(Long vtransferencia) {
-        this.vtransferencia = vtransferencia;
-    }
-
-    public Long getVpendiente() {
-        return vpendiente;
-    }
-
-    public void setVpendiente(Long vpendiente) {
-        this.vpendiente = vpendiente;
-    }
-
-    public Long getVcambio() {
-        return vcambio;
-    }
-
-    public void setVcambio(Long vcambio) {
-        this.vcambio = vcambio;
-    }
-
-
-    
-    
-
-
-    
-    public Long getVefectivo() {
-        return vefectivo;
-    }
-
-    public Long getVales() {
-        return vales;
-    }
-
-    public void setVales(Long vales) {
-        this.vales = vales;
-    }
-
-
-
-
-
-    
-    public void setVefectivo(Long vefectivo) {
-        this.vefectivo = vefectivo;
-    }
-
-    public Long getVcredito() {
-        return vcredito;
-    }
-
-    public void setVcredito(Long vcredito) {
-        this.vcredito = vcredito;
-    }
-
-   
-
-    public Long getVcheque() {
-        return vcheque;
-    }
-
-    public void setVcheque(Long vcheque) {
-        this.vcheque = vcheque;
-    }
 
     
     public TipoPago getVtipoPago() {
@@ -146,32 +104,7 @@ public class MovDetController implements Serializable {
         this.vtipoPago = vtipoPago;
     }
 
-    public Long getVvalor() {
-        return Vvalor;
-    }
 
-    public void setVvalor(Long Vvalor) {
-        this.Vvalor = Vvalor;
-    }
-
-    public Long getVreferencia() {
-        return Vreferencia;
-    }
-
-    public void setVreferencia(Long Vreferencia) {
-        this.Vreferencia = Vreferencia;
-    }
-
-    
-    
-    
-    public Long getVtotal() {
-        return vtotal;
-    }
-
-    public void setVtotal(Long vtotal) {
-        this.vtotal = vtotal;
-    }
 
     
 
@@ -216,7 +149,7 @@ public class MovDetController implements Serializable {
                         System.out.println("lmovpago"+lmovpago);
                         MovPago  mp= new MovPago(tp.getCodTipoPago(),0);
                         mp.setTipoPago(tp);
-                        mp.setValor(BigInteger.ZERO);
+                        mp.setValor(BigDecimal.ZERO);
                         lmovpago.add(mp);
                     }
                 }
@@ -263,18 +196,18 @@ public class MovDetController implements Serializable {
             selected.setCantidad(1);
         }
         selected.setPrecio(p.getPrecio());
-        Long a =  selected.getCantidad().longValue() * selected.getCodProd().getPrecio().intValue();
+        double a =  selected.getCantidad().doubleValue() * selected.getCodProd().getPrecio().doubleValue();
         if(lmovdet==null){
                               
-                selected.setTotal(a);
+                selected.setTotal( new BigDecimal(a));
         }else{
-            selected.setTotal(a);
+            selected.setTotal(new BigDecimal(a));
             lmovdet.add(selected);
         }
         if(vtotal==null){
-            vtotal =  a;
+            vtotal =  new BigDecimal(a);
         }else{
-            vtotal = vtotal + a;
+            vtotal = vtotal.add(new BigDecimal(a));
         }
         
         this.prepareCreate();
@@ -397,26 +330,26 @@ public class MovDetController implements Serializable {
 
     public String actualizarTotal()
     {
-        vcambio = (long)0;
+        vcambio = BigDecimal.ZERO;
        //this.vpendiente = this.vtotal - this.vcheque - this.vefectivo -this.vpuntos - this.vtransferencia -this.vcredito;
-        Long att =   this.vefectivo + this.vcheque + this.vales + this.vtransferencia + this.vcredito;
+        BigDecimal att =BigDecimal.ZERO;
         
+        for(MovPago mp :lmovpago){
+            if(mp.getValor().compareTo(BigDecimal.ZERO)==1){
+            att = att.add( mp.getValor());
+            }        
+        }
         
         /*si pago es mayor q total cambio >0*/
-        System.out.println("----->vefectivo"+vefectivo);
-        System.out.println("----->vcheque"+vcheque);
-        System.out.println("----->vales"+vales);
-        System.out.println("----->vtransferencia"+vtransferencia);
-        System.out.println("----->vcredito"+vcredito);
-        System.out.println("----->att"+att);
-        System.out.println("----->total"+vtotal);
-        if(att > vtotal){
-            vcambio =    this.vtotal -  att;
+       
+        if(att.compareTo(vtotal)==1){
+            vcambio =    this.vtotal.subtract(att);
+            vpendiente =BigDecimal.ZERO;
         }else{
-            vpendiente = this.vtotal -  att;
+            vpendiente = this.vtotal.subtract(att);
         }
-        if(vpendiente <0){
-            vpendiente= Long.valueOf(0);
+        if(vpendiente.compareTo(BigDecimal.ZERO)==-1){
+            vpendiente= BigDecimal.ZERO;
         }
         
         
@@ -429,15 +362,11 @@ public class MovDetController implements Serializable {
     public String limpiar(){
         lmovdet =    new ArrayList<MovDet>();
         lmovpago=    new ArrayList<MovPago>();
-        this.vpendiente=Long.valueOf(0);
-        this.vtransferencia = Long.valueOf(0);
-        this.vcheque=Long.valueOf(0);
-        this.vcredito=Long.valueOf(0);
-        this.vefectivo=Long.valueOf(0);
-        this.vales=Long.valueOf(0);
-        this.vcambio=  Long.valueOf(0);
-        this.vpendiente= Long.valueOf(0);
-        this.vtotal= Long.valueOf(0);        
+        this.vpendiente=BigDecimal.ZERO;
+     
+        this.vcambio=  BigDecimal.ZERO;
+        this.vpendiente= BigDecimal.ZERO;
+        this.vtotal= BigDecimal.ZERO;        
         return "";
     }
     
